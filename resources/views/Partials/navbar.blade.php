@@ -10,12 +10,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="#beranda">Beranda</a></li>
-        <li class="nav-item"><a class="nav-link" href="#jadwal">Jadwal Dokter</a></li>
-        <li class="nav-item"><a class="nav-link" href="#kontak">Kontak</a></li>
-        <li class="nav-item"><a class="nav-link" href="#ulasan">Ulasan</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('obat.index') }}">Beranda</a></li>
       </ul>
-      <a href="#buatjanji" class="btn btn-success ms-3">Buat Janji</a>
+      <a href="{{ route('form.pendaftaran') }}" class="btn btn-success ms-3">Daftar</a>
     </div>
   </div>
 </nav>

@@ -3,30 +3,36 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Transaksi;
 use App\Models\Obat;
 
 class ObatController extends Controller
 {
-    public function index()
-    {
-        $obats = Obat::all();
-        return view('obat\index', compact('obats'));
+    public function formPendaftaran() {
+        session(['type' => 'pendaftaran']);
+        return view('obat.show');
     }
-
-    public function show($id)
-    {
-        $obat = Obat::find($id);
-        if (!$obat) {
-            abort(404);
-        }
-        return view('obat\show', compact('obat'));
-    }
-    public function submitUlasan(Request $request, $id)
-{
-    // Bisa validasi di sini kalau mau
-    // Simulasi: ulasan diterima (tidak disimpan ke database)
     
-    return redirect()->back()->with('success', 'Ulasan sudah terkirim.');
+    public function submitPendaftaran(Request $request) {
+        $pendaftar = Pendaftar::create($request->all());
+        session(['pendaftar' => $pendaftar, 'type' => 'pendaftaran']);
+        return redirect()->route('form.pendaftaran');
+    }
+    
+    public function formObat() {
+        session(['type' => 'obat']);
+        return view('obat.show');
+    }
+    
+    public function submitObat(Request $request) {
+        $data = Obat::where('id_pendaftar', $request->id_pendaftar)
+                    ->where('id_transaksi', $request->id_transaksi)
+                    ->get();
+    
+        session(['obat' => $data, 'type' => 'obat']);
+        return redirect()->route('form.obat');
+    }
 }
-}
+
+
 

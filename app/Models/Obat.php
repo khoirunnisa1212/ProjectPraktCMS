@@ -2,33 +2,24 @@
 
 namespace App\Models;
 
-class Obat
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Obat extends Model
 {
-    // Fungsi "seolah-olah" mengambil dari database
-    protected static function getDummyData()
-    {
-        return [
-            ['id' => 1, 'title' => 'Nama Obat'],
-            ['id' => 2, 'title' => 'Jenis Obat'],
-            ['id' => 3, 'title' => 'Ulasan'],
-        ];
-    }
+    use HasFactory;
 
-    // Mengambil semua data
-    public static function all()
-    {
-        return self::getDummyData();
-    }
+    protected $table = 'obat';
 
-    // Mencari satu data berdasarkan id
-    public static function find($id)
+    protected $fillable = [
+        'pendaftar_id',
+        'nama',
+        'tanggal_kedaluwarsa',
+    ];
+
+    // Relasi: Obat dimiliki oleh satu Pendaftar
+    public function pendaftar()
     {
-        $obats = self::getDummyData();
-        foreach ($obats as $obat) {
-            if ($obat['id'] == $id) {
-                return $obat;
-            }
-        }
-        return null;
+        return $this->belongsTo(Pendaftar::class, 'pendaftar_id');
     }
 }

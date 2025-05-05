@@ -3,7 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ObatController;
 
-Route::get('/obats', [ObatController::class, 'index']);
-Route::get('/obats/{id}', [ObatController::class, 'show']);
-Route::post('/obats/{id}/ulasan', [ObatController::class, 'submitUlasan']);
-Route::get('/obat/{id}', [ObatController::class, 'show'])->name('obat.show');
+Route::get('/', function () {
+    return view('obat.index');
+})->name('obat.index');
+
+Route::get('/pendaftaran', [ObatController::class, 'formPendaftaran'])->name('form.pendaftaran');
+Route::post('/pendaftaran/submit', [ObatController::class, 'submitPendaftaran'])->name('pendaftaran.submit');
+
+Route::get('/obat', [ObatController::class, 'formObat'])->name('form.obat');
+Route::post('/obat/submit', [ObatController::class, 'submitObat'])->name('obat.submit');
+
