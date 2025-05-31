@@ -21,7 +21,7 @@
                     📝 Pendaftaran Pelanggan
                 </a>
                 <a href="{{ route('form.obat') }}" class="btn btn-outline-success m-2">
-                    💊 Lihat Resep Obat
+                    🚶‍♂️🚶‍♀️ Lihat Antrian
                 </a>
 </div>
 @endsection

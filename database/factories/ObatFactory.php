@@ -17,9 +17,8 @@ class ObatFactory extends Factory
     public function definition(): array
     {
         return [
-            'pendaftar_id' => Pendaftar::factory(), // buat pendaftar otomatis jika belum ada
-            'nama' => $this->faker->word . ' ' . $this->faker->randomElement(['Tablet', 'Kapsul', 'Sirup']),
-            'tanggal_kedaluwarsa' => $this->faker->dateTimeBetween('now', '+2 years')->format('Y-m-d'),
+            'Id_Pendaftar' => $this->faker->randomFloat(1, 30, 120),
+            'nama' => $this->faker->word . ' ' . $this->faker->randomElement(['Tita', 'Cia', 'Nina']),
         ];
     }
 }

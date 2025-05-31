@@ -54,7 +54,7 @@
             <hr>
             <h4>Detail Pendaftar Baru</h4>
             <table class="table table-bordered mt-3">
-                <tr><th>ID</th><td>{{ session('pendaftar')->id }}</td></tr>
+                <tr><th>ID_Pendaftar</th><td>{{ session('pendaftar')->id }}</td></tr>
                 <tr><th>Nama</th><td>{{ session('pendaftar')->nama }}</td></tr>
                 <tr><th>Tanggal Lahir</th><td>{{ session('pendaftar')->tanggal_lahir }}</td></tr>
                 <tr><th>Jenis Kelamin</th><td>{{ session('pendaftar')->jenis_kelamin }}</td></tr>
@@ -72,28 +72,35 @@
         @endif
 
     @elseif(session('type') == 'obat')
-        <h2>Lihat Resep Obat</h2>
+        <h2>Lihat Antrian Periksa dan Obat</h2>
         <form action="{{ route('obat.submit') }}" method="POST">
             @csrf
             <div class="form-group">
                 <label>ID Pendaftar:</label>
                 <input type="text" name="id_pendaftar" class="form-control" required>
             </div>
+            <div class="form-group">
+                <label>Nama:</label>
+                <input type="text" name="id_pendaftar" class="form-control" required>
+            </div>
     
-            <button type="submit" class="btn btn-success mt-3">Lihat Resep</button>
+            <button type="submit" class="btn btn-success mt-3">Lihat Antrian</button>
         </form>
 
-        @if(session('obat') && count(session('obat')) > 0)
-            <div class="alert alert-info mt-4">
-                <h5>Data Resep</h5>
-                <ul>
-                    @foreach(session('obat') as $data)
-                        <li>ID Obat: {{ $data->id }}, Nama Obat: {{ $data->nama }}, Exp: {{ $data->tanggal_kedaluwarsa }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @elseif(session('obat'))
-            <div class="alert alert-warning mt-4">Data resep tidak ditemukan.</div>
+         @if(session('obat'))
+            <hr>
+            <h4>Detail Antrian Baru</h4>
+            <table class="table table-bordered mt-3">
+                <tr><th>Nomor Antrian</th><td>{{ session('obat')->id }}</td></tr>
+                <tr><th>Id_Pendaftar</th><td>{{ session('obat')->Id_Pendaftar }}</td></tr>
+                <tr><th>Nama</th><td>{{ session('obat')->nama }}</td></tr>
+            </table>
+
+            <form action="{{ route('obat.destroy', session('obat')->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">Hapus Data</button>
+            </form>
         @endif
     @endif
 

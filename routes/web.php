@@ -15,3 +15,6 @@ Route::post('/obat/submit', [ObatController::class, 'submitObat'])->name('obat.s
 
 Route::get('/pendaftar/{id}', [ObatController::class, 'showPendaftar'])->name('pendaftar.show');
 Route::delete('/pendaftar/{id}', [ObatController::class, 'destroy'])->name('pendaftar.destroy');
+
+Route::get('/obat/{id}', [ObatController::class, 'showObat'])->name('obat.show');
+Route::delete('/obat/{id}', [ObatController::class, 'destroy'])->name('obat.destroy');
