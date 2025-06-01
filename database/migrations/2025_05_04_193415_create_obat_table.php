@@ -8,10 +8,11 @@ class CreateObatTable extends Migration
 {
     public function up()
     {
-       Schema::create('obat', function (Blueprint $table) {
-            $table->id(); // Nomor Antrian
-            $table->unsignedBigInteger('Id_Pendaftar');
+        Schema::create('obat', function (Blueprint $table) {
+            $table->id();
+            $table->string('id_pendaftar');
             $table->string('nama');
+            // Tambahkan kolom lain sesuai kebutuhan
         });
     }
 

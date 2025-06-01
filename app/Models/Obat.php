@@ -7,19 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Obat extends Model
 {
-    use HasFactory;
-
-    protected $table = 'obat';
+    protected $table = 'obat'; // nama tabel Oracle
+    protected $primaryKey = 'id';
 
     protected $fillable = [
-        'pendaftar_id',
-        'nama',
-        'tanggal_kedaluwarsa',
+        'id_pendaftar',
+        'nama'
     ];
 
-    // Relasi: Obat dimiliki oleh satu Pendaftar
-    public function pendaftar()
-    {
-        return $this->belongsTo(Pendaftar::class, 'pendaftar_id');
-    }
+    public $timestamps = false; // kalau tabel Oracle kamu tidak punya kolom created_at/updated_at
+
 }

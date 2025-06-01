@@ -67,7 +67,7 @@
             <form action="{{ route('pendaftar.destroy', session('pendaftar')->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger">Hapus Data</button>
+                <button action="{{ route('pendaftaran.submit') }}" type="submit" class="btn btn-danger">Hapus Data</button>
             </form>
         @endif
 
@@ -81,28 +81,37 @@
             </div>
             <div class="form-group">
                 <label>Nama:</label>
-                <input type="text" name="id_pendaftar" class="form-control" required>
+                <input type="text" name="nama" class="form-control" required>
             </div>
     
             <button type="submit" class="btn btn-success mt-3">Lihat Antrian</button>
         </form>
 
          @if(session('obat'))
-            <hr>
-            <h4>Detail Antrian Baru</h4>
-            <table class="table table-bordered mt-3">
-                <tr><th>Nomor Antrian</th><td>{{ session('obat')->id }}</td></tr>
-                <tr><th>Id_Pendaftar</th><td>{{ session('obat')->Id_Pendaftar }}</td></tr>
-                <tr><th>Nama</th><td>{{ session('obat')->nama }}</td></tr>
-            </table>
+    <hr>
+    <h4>Detail Antrian Baru</h4>
+    <div class="card mt-3 shadow-sm">
+        <div class="card-header bg-info text-white">
+            <strong>Nomor Antrian: #{{ session('obat')->id }}</strong>
+        </div>
+        <div class="card-body">
+            <p><strong>ID Pendaftar:</strong> {{ session('obat')->Id_Pendaftar }}</p>
+            <p><strong>Nama:</strong> {{ session('obat')->nama }}</p>
+            
 
+            {{-- Tombol Hapus --}}
             <form action="{{ route('obat.destroy', session('obat')->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger">Hapus Data</button>
+                <button type="submit" class="btn btn-danger">
+                    Hapus Data
+                </button>
             </form>
-        @endif
+        </div>
+    </div>
     @endif
+@endif
+
 
     <a href="{{ route('obat.index') }}" class="btn btn-secondary mt-4">Kembali ke Menu Utama</a>
 </div>

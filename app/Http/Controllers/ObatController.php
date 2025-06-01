@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Transaksi;
 use App\Models\Obat;
 use App\Models\Pendaftar;
 
@@ -39,17 +38,34 @@ class ObatController extends Controller
     }
 
     public function submitObat(Request $request) {
-        $validated = $request->validate([
-            'Id_Pendaftar' => 'required|integer',
-            'nama' => 'required',
-        ]);
+       {
+    // Validasi sederhana (boleh ditingkatkan)
+    $request->validate([
+        'id_pendaftar' => 'required',
+        'nama' => 'required'
+    ]);
 
-        $obat = Obat::create($validated);
-        session(['obat' => $obat, 'type' => 'obat']);
+    // Simpan data ke database Oracle
+    $obat = Obat::create([
+        'id_pendaftar' => $request->id_pendaftar,
+        'nama' => $request->nama
+    ]);
 
-        
-        return redirect()->route('form.obat')
-                         ->with('success', 'Selamat Anda Mendapat Nomor Antrian :');
+    // Buat object untuk session
+    $antrian = (object) [
+        'id' => $obat->id,
+        'Id_Pendaftar' => $obat->id_pendaftar,
+        'nama' => $obat->nama
+    ];
+
+    // Simpan ke session
+    session(['obat' => $antrian]);
+
+    // Redirect agar session('obat') bisa dibaca di Blade
+    return redirect()->back()->with('success', 'Data antrian berhasil disimpan dan diambil.');
+}
+
+        return redirect()->route('obat.index');
     }
 
 
