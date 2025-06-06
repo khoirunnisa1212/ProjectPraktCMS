@@ -17,11 +17,10 @@ Route::get('/pendaftar/{id}', [ObatController::class, 'showPendaftar'])->name('p
 Route::delete('/pendaftar/{id}', [ObatController::class, 'destroy'])->name('pendaftar.destroy');
 
 Route::get('/obat/{id}', [ObatController::class, 'showObat'])->name('obat.show');
-Route::delete('/obat/{id}', [ObatController::class, 'destroy'])->name('obat.destroy');
 
 Route::get('/obat/{id}', [ObatController::class, 'show'])->name('obat.show');
-Route::delete('/obat/{id}', [ObatController::class, 'destroy'])->name('obat.destroy');
-
 Route::post('/obat-submit', [ObatController::class, 'submitObat'])->name('obat.submit');
-Route::delete('/obat/{id}', [ObatController::class, 'destroy'])->name('obat.destroy');
 
+Route::get('/pendaftaran-pasien', function () {
+    return 'Selamat datang di halaman Pendaftaran Pasien Online';
+})->middleware('check.age');

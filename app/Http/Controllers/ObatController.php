@@ -78,13 +78,5 @@ class ObatController extends Controller
         session()->forget('pendaftar');
 
         return redirect()->route('form.pendaftaran')->with('success', 'Data berhasil dihapus');
-
-         $obat = Obat::findOrFail($id);
-        $obat->delete();
-
-         
-        session()->forget('obat');
-
-        return redirect()->route('form.obat')->with('success', 'Data berhasil dihapus');
     }
 }
