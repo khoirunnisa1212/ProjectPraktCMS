@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ObatController;
+use App\Http\Controllers\ImageController;
 
 Route::get('/', function () {
     return view('obat.index');
@@ -24,3 +25,6 @@ Route::post('/obat-submit', [ObatController::class, 'submitObat'])->name('obat.s
 Route::get('/pendaftaran-pasien', function () {
     return 'Selamat datang di halaman Pendaftaran Pasien Online';
 })->middleware('check.age');
+
+Route::get('/upload', [ImageController::class, 'create']);
+Route::post('/upload', [ImageController::class, 'store'])->name('image.upload');
