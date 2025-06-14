@@ -22,6 +22,18 @@
  <h3>Gambar yang baru diupload:</h3>
  <p><strong>{{ $image->title }}</strong></p>
  <img src="{{ asset('storage/' . $image->image_path) }}" width="200">
+
+  <!-- Tombol Hapus -->
+   <br><br>
+        <form action="{{ route('image.destroy', $image->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus gambar ini?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" style="color:red;">Hapus Gambar</button>
+        </form>
 @endif
+<br>
+    <a href="{{ route('obat.index') }}">
+    <button type="button">Kembali ke Menu Utama</button>
+</a>
 </body>
 </html>

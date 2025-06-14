@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Image;
 
 class ImageController extends Controller
@@ -25,6 +26,21 @@ class ImageController extends Controller
             'image_path' => $imagePath,
         ]);
 
-        return view('upload', ['image' => $image])->with('success', 'Gambar berhasil diupload.');
+        return view('obat.upload', ['image' => $image])->with('success', 'Gambar berhasil diupload.');
     }
+
+    public function destroy($id)
+{
+    $image = Image::findOrFail($id);
+
+    // Hapus file dari penyimpanan
+    if (Storage::disk('public')->exists($image->image_path)) {
+        Storage::disk('public')->delete($image->image_path);
+    }
+
+    // Hapus record dari database
+    $image->delete();
+
+    return redirect()->route('obat.upload')->with('success', 'Gambar berhasil dihapus.');
+}
 }

@@ -26,5 +26,6 @@ Route::get('/pendaftaran-pasien', function () {
     return 'Selamat datang di halaman Pendaftaran Pasien Online';
 })->middleware('check.age');
 
-Route::get('/upload', [ImageController::class, 'create']);
+Route::get('/upload', [ImageController::class, 'create'])->name('obat.upload');
 Route::post('/upload', [ImageController::class, 'store'])->name('image.upload');
+Route::delete('/upload/{id}', [ImageController::class, 'destroy'])->name('image.destroy');

@@ -12,6 +12,7 @@
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="{{ route('obat.index') }}">Beranda</a></li>
       </ul>
+      <a href="{{ route('image.upload') }}" class="btn btn-outline-warning ms-3">🖼️📤</a>
       <a href="{{ route('form.pendaftaran') }}" class="btn btn-success ms-3">Daftar</a>
     </div>
   </div>

@@ -23,8 +23,5 @@
                 <a href="{{ route('form.obat') }}" class="btn btn-outline-success m-2">
                     🚶‍♂️🚶‍♀️ Lihat Antrian
                 </a>
-                <a href="{{ route('image.upload') }}" class="btn btn-outline-success m-2">
-                    📸 Upload Gambar
-                </a>
 </div>
 @endsection
