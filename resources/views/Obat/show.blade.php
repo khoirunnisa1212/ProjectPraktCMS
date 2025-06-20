@@ -43,7 +43,7 @@
             <button type="submit" class="btn btn-primary mt-3">Daftar</button>
         </form>
 
-       @if(session('pendaftar'))
+      @if(session('pendaftar'))
 <div class="container mt-5">
     <div class="alert alert-success alert-dismissible fade show" role="alert">
         <strong>Sukses!</strong> Data pendaftar berhasil disimpan.
@@ -51,51 +51,26 @@
     </div>
 
     <div class="card shadow animate__animated animate__fadeIn">
-        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <div class="card-header bg-primary text-white">
             <h4 class="mb-0">
-                <i class="fas fa-user"></i> Detail Pendaftar Baru
+                <i class="fas fa-user"></i> Data Pendaftar
             </h4>
-            <button class="btn btn-sm btn-light" data-bs-toggle="collapse" data-bs-target="#pendaftarDetail">
-                <i class="fas fa-chevron-down"></i>
-            </button>
         </div>
-        <div id="pendaftarDetail" class="collapse show">
-            <div class="card-body">
-                <table class="table table-hover">
-                    <tr>
-                        <th style="width: 30%;">ID Pendaftar</th>
-                        <td>{{ session('pendaftar')->id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Nama</th>
-                        <td>{{ session('pendaftar')->nama }}</td>
-                    </tr>
-                    <tr>
-                        <th>Tanggal Lahir</th>
-                        <td>{{ session('pendaftar')->tanggal_lahir }}</td>
-                    </tr>
-                    <tr>
-                        <th>Jenis Kelamin</th>
-                        <td>{{ session('pendaftar')->jenis_kelamin }}</td>
-                    </tr>
-                    <tr>
-                        <th>Berat Badan</th>
-                        <td>{{ session('pendaftar')->bb }} kg</td>
-                    </tr>
-                    <tr>
-                        <th>Tinggi Badan</th>
-                        <td>{{ session('pendaftar')->tb }} cm</td>
-                    </tr>
-                    <tr>
-                        <th>Telepon</th>
-                        <td>{{ session('pendaftar')->telepon }}</td>
-                    </tr>
-                    <tr>
-                        <th>Email</th>
-                        <td>{{ session('pendaftar')->email }}</td>
-                    </tr>
-                </table>
-
+        <div class="card-body">
+            <table class="table table-striped">
+                <tr>
+                    <th style="width: 40%;">ID Pendaftar</th>
+                    <td>{{ session('pendaftar')->id }}</td>
+                </tr>
+                <tr>
+                    <th>Nama</th>
+                    <td>{{ session('pendaftar')->nama }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<br>
                 <div class="d-flex justify-content-end gap-2">
                     <!-- Tombol Hapus -->
                     <form action="{{ route('pendaftar.destroy', session('pendaftar')->id) }}" method="POST" onsubmit="return confirmDelete(event)">
@@ -111,10 +86,6 @@
                         <i class="fas fa-clipboard-list"></i> Ambil Antrian
                     </a>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
 @endif
 
 <!-- Modal Konfirmasi Hapus -->

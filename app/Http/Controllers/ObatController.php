@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\Obat;
 use App\Models\Pendaftar;
+
 
 class ObatController extends Controller
 {
@@ -30,6 +32,26 @@ class ObatController extends Controller
         
         return redirect()->route('form.pendaftaran')
                          ->with('success', 'Data Pendaftar berhasil ditambahkan');
+    }
+
+        public function formCekPendaftar()
+    {
+        session(['type' => 'cek']);
+        return view('obat.cek');
+    }
+
+    public function cekPendaftar(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer'
+        ]);
+
+        try {
+            $data = Pendaftar::findOrFail($request->id);
+            return view('obat.cek', compact('data'));
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('form.cek.pendaftar')->withErrors('Pendaftar tidak ditemukan.');
+        }
     }
 
     public function formObat() {

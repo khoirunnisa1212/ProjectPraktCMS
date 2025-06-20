@@ -29,3 +29,6 @@ Route::get('/pendaftaran-pasien', function () {
 Route::get('/upload', [ImageController::class, 'create'])->name('obat.upload');
 Route::post('/upload', [ImageController::class, 'store'])->name('image.upload');
 Route::delete('/upload/{id}', [ImageController::class, 'destroy'])->name('image.destroy');
+
+Route::get('/cek-pendaftar', [ObatController::class, 'formCekPendaftar'])->name('form.cek.pendaftar');
+Route::get('/cek-pendaftar/search', [ObatController::class, 'cekPendaftar'])->name('obat.cek');
