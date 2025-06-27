@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 use App\Models\Obat;
 use App\Models\Pendaftar;
 
@@ -15,24 +16,38 @@ class ObatController extends Controller
         return view('obat.show');
     }
 
-    public function submitPendaftaran(Request $request) {
+public function submitPendaftaran(Request $request)
+{
+    try {
         $validated = $request->validate([
             'nama' => 'required',
             'tanggal_lahir' => 'required|date',
             'jenis_kelamin' => 'required',
             'bb' => 'required|integer',
             'tb' => 'required|integer',
-            'telepon' => 'required',
-            'email' => 'required|email'
+            'telepon' => 'required|numeric',
+            'email' => 'required|email|unique:pendaftar,email'
         ]);
 
         $pendaftar = Pendaftar::create($validated);
         session(['pendaftar' => $pendaftar, 'type' => 'pendaftaran']);
 
-        
+        // Logging info
+        Log::info('Pendaftar berhasil disimpan', [
+            'id' => $pendaftar->id,
+            'nama' => $pendaftar->nama
+        ]);
+
         return redirect()->route('form.pendaftaran')
-                         ->with('success', 'Data Pendaftar berhasil ditambahkan');
+                         ->with('success', 'Data Pendaftar berhasil disimpan');
+    } catch (\Exception $e) {
+        // Logging error
+        Log::error('Error saat menyimpan data pendaftar: ' . $e->getMessage());
+
+        return redirect()->back()
+                         ->with('error', 'Terjadi kesalahan saat menyimpan data.');
     }
+}    
 
         public function formCekPendaftar()
     {

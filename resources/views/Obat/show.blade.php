@@ -4,89 +4,115 @@
 
 <div class="container mt-4">
 
-    @if(session('type') == 'pendaftaran')
-        <h2>Form Pendaftaran Pelanggan</h2>
-        <form action="{{ route('pendaftaran.submit') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label>Nama:</label>
-                <input type="text" name="nama" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Tanggal Lahir:</label>
-                <input type="date" name="tanggal_lahir" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Jenis Kelamin:</label>
-                <select name="jenis_kelamin" class="form-control" required>
-                    <option value="Laki-laki">Laki-laki</option>
-                    <option value="Perempuan">Perempuan</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Berat Badan (kg):</label>
-                <input type="number" name="bb" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Tinggi Badan (cm):</label>
-                <input type="number" name="tb" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>No Telepon:</label>
-                <input type="text" name="telepon" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label>Email:</label>
-                <input type="email" name="email" class="form-control" required>
-            </div>
+@if(session('type') == 'pendaftaran')
+    <h2>Form Pendaftaran Pelanggan</h2>
 
-            <button type="submit" class="btn btn-primary mt-3">Daftar</button>
-        </form>
-
-      @if(session('pendaftar'))
-<div class="container mt-5">
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong>Sukses!</strong> Data pendaftar berhasil disimpan.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-
-    <div class="card shadow animate__animated animate__fadeIn">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">
-                <i class="fas fa-user"></i> Data Pendaftar
-            </h4>
+    {{-- Tambahan: Tampilkan pesan sukses dan error --}}
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
-        <div class="card-body">
-            <table class="table table-striped">
-                <tr>
-                    <th style="width: 40%;">ID Pendaftar</th>
-                    <td>{{ session('pendaftar')->id }}</td>
-                </tr>
-                <tr>
-                    <th>Nama</th>
-                    <td>{{ session('pendaftar')->nama }}</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</div>
-<br>
-                <div class="d-flex justify-content-end gap-2">
-                    <!-- Tombol Hapus -->
-                    <form action="{{ route('pendaftar.destroy', session('pendaftar')->id) }}" method="POST" onsubmit="return confirmDelete(event)">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Hapus Data
-                        </button>
-                    </form>
+    @endif
 
-                    <!-- Tombol Ambil Antrian -->
-                    <a href="{{ route('form.obat') }}" class="btn btn-info">
-                        <i class="fas fa-clipboard-list"></i> Ambil Antrian
-                    </a>
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    {{-- Akhir tambahan --}}
+
+    <form action="{{ route('submit.pendaftaran') }}" method="POST">
+        @csrf
+        <div class="form-group">
+            <label>Nama:</label>
+            <input type="text" name="nama" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Tanggal Lahir:</label>
+            <input type="date" name="tanggal_lahir" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Jenis Kelamin:</label>
+            <select name="jenis_kelamin" class="form-control" required>
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Berat Badan (kg):</label>
+            <input type="number" name="bb" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Tinggi Badan (cm):</label>
+            <input type="number" name="tb" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>No Telepon:</label>
+            <input type="text" name="telepon" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Daftar</button>
+    </form>
+
+    {{-- Blok tampilan hasil pendaftar tetap seperti sebelumnya --}}
+    @if(session('pendaftar'))
+        <div class="container mt-5">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Sukses!</strong> Data pendaftar berhasil disimpan.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            <div class="card shadow animate__animated animate__fadeIn">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-user"></i> Data Pendaftar
+                    </h4>
                 </div>
-@endif
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <tr>
+                            <th style="width: 40%;">ID Pendaftar</th>
+                            <td>{{ session('pendaftar')->id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nama</th>
+                            <td>{{ session('pendaftar')->nama }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="d-flex justify-content-end gap-2">
+            <!-- Tombol Hapus -->
+            <form action="{{ route('pendaftar.destroy', session('pendaftar')->id) }}" method="POST" onsubmit="return confirmDelete(event)">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">
+                    <i class="fas fa-trash"></i> Hapus Data
+                </button>
+            </form>
+
+            <!-- Tombol Ambil Antrian -->
+            <a href="{{ route('form.obat') }}" class="btn btn-info">
+                <i class="fas fa-clipboard-list"></i> Ambil Antrian
+            </a>
+        </div>
+    @endif
 
 <!-- Modal Konfirmasi Hapus -->
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">

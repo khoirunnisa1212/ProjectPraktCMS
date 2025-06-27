@@ -9,7 +9,8 @@ Route::get('/', function () {
 })->name('obat.index');
 
 Route::get('/pendaftaran', [ObatController::class, 'formPendaftaran'])->name('form.pendaftaran');
-Route::post('/pendaftaran/submit', [ObatController::class, 'submitPendaftaran'])->name('pendaftaran.submit');
+Route::post('/pendaftaran', [ObatController::class, 'submitPendaftaran'])->name('submit.pendaftaran');
+
 
 Route::get('/obat', [ObatController::class, 'formObat'])->name('form.obat');
 Route::post('/obat/submit', [ObatController::class, 'submitObat'])->name('obat.submit');
