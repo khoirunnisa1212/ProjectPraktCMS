@@ -11,6 +11,11 @@ use App\Models\Pendaftar;
 
 class ObatController extends Controller
 {
+    public function index()
+    {
+        return view('obat.index');
+    }
+
     public function formPendaftaran() {
         session(['type' => 'pendaftaran']);
         return view('obat.show');

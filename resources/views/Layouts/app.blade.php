@@ -14,6 +14,7 @@
 </head>
 <body>
 
+  {{-- Navbar (isi file partials/navbar.blade.php) --}}
   @include('partials.navbar')
 
   <main class="container-fluid p-0">

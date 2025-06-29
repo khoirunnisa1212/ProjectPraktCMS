@@ -7,7 +7,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
     <div class="container">
         <!-- Brand -->
-        <a class="navbar-brand fw-bold" href="#">Klinik Gigi Sehat</a>
+        <a class="navbar-brand fw-bold" href="#">Klinik Gigi Sehat🦷</a>
 
         <!-- Toggle (Mobile) -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -17,24 +17,34 @@
 
         <!-- Navbar Items -->
         <div class="collapse navbar-collapse" id="navbarNav">
-            <!-- Left link -->
             <ul class="navbar-nav ms-auto align-items-lg-center me-3">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('obat.index') }}">Beranda</a>
-                </li>
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('obat.index') }}">Beranda</a>
+                    </li>
+                @endauth
             </ul>
 
-            <!-- Right buttons -->
-            <div class="d-flex gap-2">
-                <a href="{{ route('form.cek.pendaftar') }}" class="btn btn-outline-secondary btn-sm">
-                    🔍 Cek
-                </a>
-                <a href="{{ route('image.upload') }}" class="btn btn-outline-warning btn-sm">
-                    🖼️ Upload
-                </a>
-                <a href="{{ route('form.pendaftaran') }}" class="btn btn-success btn-sm">
-                    📝 Daftar
-                </a>
+            <div class="d-flex gap-2 align-items-center">
+                @auth
+                    <a href="{{ route('form.cek.pendaftar') }}" class="btn btn-outline-secondary btn-sm">
+                        🔍 Cek
+                    </a>
+                    <a href="{{ route('image.upload') }}" class="btn btn-outline-warning btn-sm">
+                        🖼️ Upload
+                    </a>
+                    <a href="{{ route('form.pendaftaran') }}" class="btn btn-success btn-sm">
+                        📝 Daftar
+                    </a>
+                    <span class="text-success small ms-2">👋 Hai, {{ Auth::user()->nama }}</span>
+                    <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm">Login</a>
+                    <a href="{{ route('register') }}" class="btn btn-outline-dark btn-sm">Register</a>
+                @endauth
             </div>
         </div>
     </div>
