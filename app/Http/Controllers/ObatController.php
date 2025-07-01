@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Obat;
 use App\Models\Pendaftar;
 
@@ -74,10 +75,41 @@ public function submitPendaftaran(Request $request)
         }
     }
 
-    public function formObat() {
-        session(['type' => 'obat']);
-        return view('obat.show');
+    public function edit($id)
+    {
+        $data = Pendaftar::findOrFail($id);
+        return view('obat.edit', compact('data'));
     }
+
+    public function update(Request $request, $id)
+{
+    $validator = Validator::make($request->all(), [
+        'nama' => 'required|string|max:255',
+        'tanggal_lahir' => 'required|date|before:today',
+        'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+        'bb' => 'required|numeric|min:30|max:200',
+        'tb' => 'required|numeric|min:30|max:250',
+        'telepon' => 'required',
+        'email' => 'required|email'
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    $pendaftar = Pendaftar::findOrFail($id);
+    $pendaftar->nama = $request->nama;
+    $pendaftar->tanggal_lahir = date('Y-m-d', strtotime($request->tanggal_lahir));
+    $pendaftar->jenis_kelamin = $request->jenis_kelamin; 
+    $pendaftar->bb = $request->bb;
+    $pendaftar->tb = $request->tb;
+    $pendaftar->telepon = $request->telepon;
+    $pendaftar->email = $request->email;
+    $pendaftar->save();
+
+    return redirect()->route('obat.cek', ['id' => $id])->with('success', 'Data berhasil diperbarui.');
+}
+
 
     public function submitObat(Request $request) {
        {

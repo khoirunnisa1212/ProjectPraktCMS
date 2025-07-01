@@ -45,3 +45,8 @@ Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('regi
 Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Tampilkan form edit
+Route::get('/pendaftar/{id}/edit', [ObatController::class, 'edit'])->name('pendaftar.edit');
+// Proses update
+Route::post('/pendaftar/{id}/update', [ObatController::class, 'update'])->name('pendaftar.update');

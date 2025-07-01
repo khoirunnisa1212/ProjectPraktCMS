@@ -20,6 +20,12 @@
         </div>
     @endif
 
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+
     {{-- Jika data ditemukan --}}
     @isset($data)
     <div class="card shadow">
@@ -37,6 +43,7 @@
                 <tr><th>Telepon</th><td>{{ $data->telepon }}</td></tr>
                 <tr><th>Email</th><td>{{ $data->email }}</td></tr>
             </table>
+            <a href="{{ route('pendaftar.edit', $data->id) }}" class="btn btn-warning mt-3">Edit Data</a>
         </div>
     </div>
     @endisset
