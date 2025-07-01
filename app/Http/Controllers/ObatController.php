@@ -71,7 +71,7 @@ public function submitPendaftaran(Request $request)
             $data = Pendaftar::findOrFail($request->id);
             return view('obat.cek', compact('data'));
         } catch (ModelNotFoundException $e) {
-            return redirect()->route('form.cek.pendaftar')->withErrors('Pendaftar tidak ditemukan.');
+            return redirect()->route('form.cek.pendaftar')->withErrors('Pendaftar tidak ditemukan?');
         }
     }
 
@@ -110,6 +110,11 @@ public function submitPendaftaran(Request $request)
     return redirect()->route('obat.cek', ['id' => $id])->with('success', 'Data berhasil diperbarui.');
 }
 
+    public function formObat(Request $request)
+{
+    session(['type' => 'obat']); 
+    return view('obat.show');   
+}
 
     public function submitObat(Request $request) {
        {

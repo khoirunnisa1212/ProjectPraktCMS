@@ -50,3 +50,4 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/pendaftar/{id}/edit', [ObatController::class, 'edit'])->name('pendaftar.edit');
 // Proses update
 Route::post('/pendaftar/{id}/update', [ObatController::class, 'update'])->name('pendaftar.update');
+Route::get('/obat/form', [ObatController::class, 'formObat'])->name('form.obat');
