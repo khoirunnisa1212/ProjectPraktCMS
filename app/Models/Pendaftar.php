@@ -9,7 +9,7 @@ class Pendaftar extends Model
 {
     use HasFactory;
 
-    protected $table = 'pendaftar'; // sesuai nama tabel
+    protected $table = 'pendaftar'; 
 
     protected $fillable = [
         'nama',
@@ -19,16 +19,14 @@ class Pendaftar extends Model
         'tb',
         'telepon',
         'email',
-        'akun_id' // tambahkan agar bisa diisi saat create()
+        'akun_id' 
     ];
 
-    // Relasi: Pendaftar dimiliki oleh satu akun
     public function akun()
     {
         return $this->belongsTo(Akun::class);
     }
 
-    // Relasi: Pendaftar memiliki banyak Obat
     public function obat()
     {
         return $this->hasMany(Obat::class, 'pendaftar_id');

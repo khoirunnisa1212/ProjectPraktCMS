@@ -9,12 +9,12 @@ class CreatePendaftarTable extends Migration
     public function up()
     {
         Schema::create('pendaftar', function (Blueprint $table) {
-            $table->id(); // id_pendaftar
+            $table->id(); 
             $table->string('nama');
             $table->date('tanggal_lahir');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
-            $table->float('bb'); // berat badan dalam kg
-            $table->float('tb'); // tinggi badan dalam cm
+            $table->float('bb'); 
+            $table->float('tb'); 
             $table->string('telepon');
             $table->string('email');
             $table->foreignId('akun_id')->constrained('akun')->onDelete('cascade');
@@ -24,7 +24,6 @@ class CreatePendaftarTable extends Migration
 
     private function callSeeder(): void
     {
-        // Jalankan seeder secara manual
         (new ObatSeeder)->run();
     }
 

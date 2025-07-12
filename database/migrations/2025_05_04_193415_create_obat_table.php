@@ -18,10 +18,8 @@ class CreateObatTable extends Migration
 
     private function callSeeder(): void
     {
-        // Jalankan seeder secara manual
         (new ObatSeeder)->run();
     }
-
 
     public function down()
     {

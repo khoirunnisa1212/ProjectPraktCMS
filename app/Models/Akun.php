@@ -9,20 +9,19 @@ class Akun extends Authenticatable
 {
     use Notifiable;
 
-    protected $table = 'akun'; // nama tabel custom
+    protected $table = 'akun';
 
     protected $fillable = [
     'nama', 'email', 'password', 'role' ,'sudah_daftar'
-];
-
+    ];
 
     protected $hidden = [
         'password', 'remember_token',
     ];
 
     public function pendaftar()
-{
-    return $this->hasOne(Pendaftar::class);
-}
+    {
+        return $this->hasOne(Pendaftar::class);
+    }
 
 }

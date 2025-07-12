@@ -6,27 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
-       Schema::create('akun', function (Blueprint $table) {
-        $table->id();
-        $table->string('nama');
-        $table->string('email')->unique();
-        $table->string('password');
-        $table->string('role')->default('pendaftar');
-        $table->boolean('sudah_daftar')->default(false);
-        $table->rememberToken();
-        $table->timestamps();
-    });
-
+        Schema::create('akun', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('role')->default('pendaftar');
+            $table->boolean('sudah_daftar')->default(false);
+            $table->rememberToken();
+            $table->timestamps();
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('akuns');

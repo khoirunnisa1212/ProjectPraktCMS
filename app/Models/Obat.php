@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Obat extends Model
 {
-    protected $table = 'obat'; // nama tabel Oracle
+    protected $table = 'obat';
     protected $primaryKey = 'id';
 
     protected $fillable = [
@@ -15,6 +15,6 @@ class Obat extends Model
         'nama'
     ];
 
-    public $timestamps = false; // kalau tabel Oracle kamu tidak punya kolom created_at/updated_at
+    public $timestamps = false; 
 
 }
