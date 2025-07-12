@@ -33,12 +33,10 @@ class ImageController extends Controller
 {
     $image = Image::findOrFail($id);
 
-    // Hapus file dari penyimpanan
     if (Storage::disk('public')->exists($image->image_path)) {
         Storage::disk('public')->delete($image->image_path);
     }
 
-    // Hapus record dari database
     $image->delete();
 
     return redirect()->route('obat.upload')->with('success', 'Gambar berhasil dihapus.');

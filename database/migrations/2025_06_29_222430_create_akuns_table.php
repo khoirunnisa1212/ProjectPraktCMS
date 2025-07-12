@@ -16,6 +16,8 @@ return new class extends Migration
         $table->string('nama');
         $table->string('email')->unique();
         $table->string('password');
+        $table->string('role')->default('pendaftar');
+        $table->boolean('sudah_daftar')->default(false);
         $table->rememberToken();
         $table->timestamps();
     });

@@ -12,10 +12,17 @@ class Akun extends Authenticatable
     protected $table = 'akun'; // nama tabel custom
 
     protected $fillable = [
-        'nama', 'email', 'password',
-    ];
+    'nama', 'email', 'password', 'role' ,'sudah_daftar'
+];
+
 
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function pendaftar()
+{
+    return $this->hasOne(Pendaftar::class);
+}
+
 }

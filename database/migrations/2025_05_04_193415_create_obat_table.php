@@ -12,7 +12,7 @@ class CreateObatTable extends Migration
             $table->id();
             $table->string('id_pendaftar');
             $table->string('nama');
-            // Tambahkan kolom lain sesuai kebutuhan
+            $table->timestamps();
         });
     }
 

@@ -19,7 +19,14 @@ class Pendaftar extends Model
         'tb',
         'telepon',
         'email',
+        'akun_id' // tambahkan agar bisa diisi saat create()
     ];
+
+    // Relasi: Pendaftar dimiliki oleh satu akun
+    public function akun()
+    {
+        return $this->belongsTo(Akun::class);
+    }
 
     // Relasi: Pendaftar memiliki banyak Obat
     public function obat()
@@ -27,4 +34,3 @@ class Pendaftar extends Model
         return $this->hasMany(Obat::class, 'pendaftar_id');
     }
 }
-

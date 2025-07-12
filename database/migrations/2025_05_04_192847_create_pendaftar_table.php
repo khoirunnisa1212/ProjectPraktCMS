@@ -17,6 +17,7 @@ class CreatePendaftarTable extends Migration
             $table->float('tb'); // tinggi badan dalam cm
             $table->string('telepon');
             $table->string('email');
+            $table->foreignId('akun_id')->constrained('akun')->onDelete('cascade');
             $table->timestamps();
         });
     }

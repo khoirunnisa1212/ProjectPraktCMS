@@ -18,12 +18,18 @@ class AuthController extends Controller
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required']
+            'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->route('home');
+        $akun = Akun::where('email', $request->email)->first();
+
+        if ($akun && Hash::check($request->password, $akun->password)) {
+            Auth::login($akun);
+            if ($akun->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            } else {
+                return redirect()->route('obat.index');
+            }
         }
 
         return back()->withErrors(['email' => 'Email atau password salah.']);
@@ -35,22 +41,23 @@ class AuthController extends Controller
     }
 
     public function register(Request $request)
-    {
-        $request->validate([
-            'nama' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'unique:akun,email'],
-            'password' => ['required', 'min:6', 'confirmed'],
-        ]);
+{
+    $request->validate([
+        'nama' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'email', 'unique:akun,email'],
+        'password' => ['required', 'min:6', 'confirmed'],
+    ]);
 
-        $akun = Akun::create([
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    \App\Models\Akun::create([
+        'nama' => $request->nama,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'role' => 'pendaftar', // default role
+    ]);
 
-        Auth::login($akun);
-        return redirect()->route('login');
-    }
+    return redirect()->route('login')->with('success', 'Akun berhasil dibuat. Silakan login.');
+}
+
 
     public function logout(Request $request)
     {
@@ -60,4 +67,3 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 }
-

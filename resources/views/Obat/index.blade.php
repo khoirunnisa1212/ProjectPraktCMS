@@ -17,11 +17,19 @@
             </blockquote>
 
             <div class="mt-4">
-                <a href="{{ route('form.pendaftaran') }}" class="btn btn-outline-primary m-2">
-                    📝 Pendaftaran Pelanggan
+            @if(auth()->check() && !auth()->user()->sudah_daftar)
+            <a href="{{ route('form.pendaftaran') }}" class="btn btn-outline-primary m-2">
+                    📝 Pendaftaran Pasien
                 </a>
+                @endif
                 <a href="{{ route('form.obat') }}" class="btn btn-outline-success m-2">
-                    🚶‍♂️🚶‍♀️ Lihat Antrian
+                    🚶‍♂️🚶‍♀️ Ambil Antrian
                 </a>
+                <a href="{{ route('obat.jadwal') }}" class="btn btn-outline-info m-2">
+                    📅 Jadwal Dokter
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

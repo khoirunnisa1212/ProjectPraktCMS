@@ -14,8 +14,10 @@
 </head>
 <body>
 
-  {{-- Navbar (isi file partials/navbar.blade.php) --}}
-  @include('partials.navbar')
+@if (!isset($hideNavbar) || !$hideNavbar)
+    @include('partials.navbar')
+@endif
+
 
   <main class="container-fluid p-0">
     @yield('content')
